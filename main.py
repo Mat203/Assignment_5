@@ -20,8 +20,6 @@ def caesar_decrypt(text, shift):
             shifted_value = ascii_value- shift 
             decrypted_char = chr(shifted_value) 
             decrypted_text.append(decrypted_char)
-        else:
-            decrypted_text.append(char)
     return ''.join(decrypted_text)
 
 def read_file(file_path):
@@ -32,23 +30,29 @@ def write_file(file_path, content):
     with open(file_path, 'w') as file:
         file.write(content)
 
+def encrypt_operations(shift):
+    file_path = input("Enter file name with text: ")
+    text = read_file(file_path)
+    encrypted_text = caesar_encrypt(text, shift)
+    output_file_path = input("Enter file name for encrypted text: ")
+    write_file(output_file_path, encrypted_text)
+    print(f"Encrypted text is written in '{output_file_path}'")
+
+def decrypt_operations(shift):
+    file_path = input("Enter file name with enrypted text: ")
+    encrypted_text = read_file(file_path)
+    decrypted_text = caesar_decrypt(encrypted_text, shift)
+    output_file_path = input("Enter file name for decrypted text:  ")
+    write_file(output_file_path, decrypted_text)
+    print(f"Decrypted text is written in '{output_file_path}'")
+
 def main():
     operation = input("Enter 'e' for encrypt or 'd' for decrypt: ")
     shift = int(input("Enter shift: "))
     if operation.lower() == 'e':
-        file_path = input("Enter file name with text: ")
-        text = read_file(file_path)
-        encrypted_text = caesar_encrypt(text, shift)
-        output_file_path = input("Enter file name for encrypted text: ")
-        write_file(output_file_path, encrypted_text)
-        print(f"Encrypted text is written in '{output_file_path}'")
+        encrypt_operations(shift)
     elif operation.lower() == 'd':
-        file_path = input("Enter file name with enrypted text: ")
-        encrypted_text = read_file(file_path)
-        decrypted_text = caesar_decrypt(encrypted_text, shift)
-        output_file_path = input("Enter file name for decrypted text:  ")
-        write_file(output_file_path, decrypted_text)
-        print(f"Decrypted text is written in '{output_file_path}'")
+        decrypt_operations(shift)
     else:
         print("Unknown operation")
 
