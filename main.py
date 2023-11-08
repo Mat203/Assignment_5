@@ -30,29 +30,25 @@ def write_file(file_path, content):
     with open(file_path, 'w') as file:
         file.write(content)
 
-def encrypt_operations(shift):
-    file_path = input("Enter file name with text: ")
-    text = read_file(file_path)
-    encrypted_text = caesar_encrypt(text, shift)
-    output_file_path = input("Enter file name for encrypted text: ")
-    write_file(output_file_path, encrypted_text)
-    print(f"Encrypted text is written in '{output_file_path}'")
 
-def decrypt_operations(shift):
-    file_path = input("Enter file name with enrypted text: ")
-    encrypted_text = read_file(file_path)
-    decrypted_text = caesar_decrypt(encrypted_text, shift)
-    output_file_path = input("Enter file name for decrypted text:  ")
-    write_file(output_file_path, decrypted_text)
-    print(f"Decrypted text is written in '{output_file_path}'")
+def apply_caesar_operation(operation_function, shift):
+    file_path = input("Enter the file name to read")
+    text = read_file(file_path)
+
+    result_text = operation_function(text, shift)
+    output_file_path = input("Enter the file name to write")
+
+    write_file(output_file_path, result_text)
+    print("Operation is completed")
 
 def main():
     operation = input("Enter 'e' for encrypt or 'd' for decrypt: ")
     shift = int(input("Enter shift: "))
+    
     if operation.lower() == 'e':
-        encrypt_operations(shift)
+        apply_caesar_operation(caesar_encrypt, shift)
     elif operation.lower() == 'd':
-        decrypt_operations(shift)
+        apply_caesar_operation(caesar_decrypt, shift)
     else:
         print("Unknown operation")
 
