@@ -8,12 +8,13 @@ def read_file(file_path):
     return text
 
 def calculate_frequencies(text):
+    text = text.replace(' ', '') 
     return Counter(text)
 
 def find_most_frequent_letter(letter_freq):
     return letter_freq.most_common(1)[0][0]
 
-def calculate_shift(most_frequent_letter, most_frequent_english_symbol=' '):
+def calculate_shift(most_frequent_letter, most_frequent_english_symbol='e'):
     return ord(most_frequent_letter) - ord(most_frequent_english_symbol)
 
 def plot_frequencies(letter_freq):
